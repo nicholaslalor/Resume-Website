@@ -3,7 +3,7 @@ name: Deploy to S3 and AWS
 on:
   push:
     branches:
-      - main  # Change this to your default branch name
+      - master  # Trigger this on pushes to the master branch
 
 jobs:
   deploy:
