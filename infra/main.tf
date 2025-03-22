@@ -59,7 +59,7 @@ resource "aws_iam_policy" "iam_policy_for_resume_project" {
             "s3:PutObject",      # Allow the IAM role to upload objects to S3
             "s3:GetObject"       # Allow the IAM role to retrieve objects from S3 (optional)
           ],
-          "Resource" : "arn:aws:s3:::nicholaslalor.com/*"  # Specify your bucket name
+          "Resource" : "arn:aws:s3:::nicholaslalor.com/*"  # Specify your existing bucket name
         }
       ]
     })
@@ -90,29 +90,30 @@ resource "aws_lambda_function_url" "url1" {
   }
 }
 
-# Define the S3 bucket resource with your bucket name
-resource "aws_s3_bucket" "my_bucket" {
-  bucket = "nicholaslalor.com"  # Replace with your actual bucket name
-  versioning {
-    enabled = true  # Enable versioning for the bucket
-  }
+# Remove S3 Bucket Creation
+# resource "aws_s3_bucket" "my_bucket" {
+#   bucket = "nicholaslalor.com"  # This is the existing bucket
+# }
 
-  tags = {
-    Name        = "nicholaslalor.com"
-    Environment = "Dev"
+# Enable versioning on the existing S3 bucket (Note: Don't create the bucket, just configure versioning)
+resource "aws_s3_bucket_versioning" "my_bucket_versioning" {
+  bucket = "nicholaslalor.com"  # Use the existing bucket directly
+
+  versioning_configuration {
+    status = "Enabled"
   }
 }
 
-# Define the ACL for the S3 bucket (recommended change)
+# Define the ACL for the existing S3 bucket
 resource "aws_s3_bucket_acl" "my_bucket_acl" {
-  bucket = aws_s3_bucket.my_bucket.bucket  # Reference the created bucket
-  acl    = "private"  # Set the access control level
+  bucket = "nicholaslalor.com"  # Use the existing bucket directly
+  acl    = "private"            # Set the access control level
 }
 
-# Upload a file to the S3 bucket
+# Upload a file to the existing S3 bucket
 resource "aws_s3_object" "my_file" {
-  bucket = aws_s3_bucket.my_bucket.bucket  # Reference the created bucket
-  key    = "index.html"       # S3 object key (filename in the bucket)
+  bucket = "nicholaslalor.com"  # Use the existing bucket directly
+  key    = "index.html"         # S3 object key (filename in the bucket)
   source = "C:/Users/bmxma/OneDrive/Desktop/My Resume and Job Sutff/Resume-Website/index.html"  # Local file path
-  acl    = "private"  # Access control
+  acl    = "private"            # Access control
 }
