@@ -7,7 +7,7 @@ terraform {
   }
 }
 
-# Primary provider configuration for us-east-2 (region will be fetched from environment variable)
+# Primary provider configuration for us-east-1 (where your S3 bucket is located)
 provider "aws" {
-  region = "us-east-2"  # You can still specify the region here or it will be picked up from AWS_DEFAULT_REGION if set in the environment variable
+  region = "us-east-1"  # Set this to the correct region (us-east-1 for your bucket)
 }
