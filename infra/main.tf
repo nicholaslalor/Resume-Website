@@ -36,13 +36,13 @@ resource "aws_iam_policy" "iam_policy_for_resume_project" {
       "Version" : "2012-10-17",
       "Statement" : [
         {
+          "Effect" : "Allow",
           "Action" : [
             "logs:CreateLogGroup",
             "logs:CreateLogStream",
             "logs:PutLogEvents"
           ],
-          "Resource" : "arn:aws:logs:*:*:*",
-          "Effect" : "Allow"
+          "Resource" : "arn:aws:logs:*:*:*"
         },
         {
           "Effect" : "Allow",
@@ -52,6 +52,14 @@ resource "aws_iam_policy" "iam_policy_for_resume_project" {
             "dynamodb:PutItem"
           ],
           "Resource" : "arn:aws:dynamodb:*:*:table/CloudResumeChallengeDatabase"
+        },
+        {
+          "Effect" : "Allow",
+          "Action" : [
+            "s3:PutObject",      # Allow the IAM role to upload objects to S3
+            "s3:GetObject"       # Allow the IAM role to retrieve objects from S3 (optional)
+          ],
+          "Resource" : "arn:aws:s3:::nicholaslalor.com/*"  # Specify your bucket name
         }
       ]
     })
@@ -95,4 +103,12 @@ resource "aws_s3_bucket" "my_bucket" {
     Name        = "nicholaslalor.com"
     Environment = "Dev"
   }
+}
+
+# Upload a file to the S3 bucket
+resource "aws_s3_bucket_object" "my_file" {
+  bucket = aws_s3_bucket.my_bucket.bucket  # Reference the created bucket
+  key    = "C:\Users\bmxma\OneDrive\Desktop\My Resume and Job Sutff\Resume-Website\index.html"       # S3 object key (filename in the bucket)
+  source = "${path.module}/lambda/func.zip"  # Local file path (make sure this file exists in the specified location)
+  acl    = "private"  # Access control
 }
