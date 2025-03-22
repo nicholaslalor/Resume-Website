@@ -93,7 +93,9 @@ resource "aws_lambda_function_url" "url1" {
 # Define the S3 bucket resource with your bucket name
 resource "aws_s3_bucket" "my_bucket" {
   bucket = "nicholaslalor.com"  # Replace with your actual bucket name
-  acl    = "private"            # Set the access control level
+  versioning {
+    enabled = true  # Enable versioning for the bucket
+  }
 
   tags = {
     Name        = "nicholaslalor.com"
@@ -101,13 +103,10 @@ resource "aws_s3_bucket" "my_bucket" {
   }
 }
 
-# Enable versioning on the S3 bucket
-resource "aws_s3_bucket_versioning" "my_bucket_versioning" {
-  bucket = aws_s3_bucket.my_bucket.bucket
-
-  versioning_configuration {
-    status = "Enabled"
-  }
+# Define the ACL for the S3 bucket (recommended change)
+resource "aws_s3_bucket_acl" "my_bucket_acl" {
+  bucket = aws_s3_bucket.my_bucket.bucket  # Reference the created bucket
+  acl    = "private"  # Set the access control level
 }
 
 # Upload a file to the S3 bucket
@@ -117,4 +116,3 @@ resource "aws_s3_object" "my_file" {
   source = "C:/Users/bmxma/OneDrive/Desktop/My Resume and Job Sutff/Resume-Website/index.html"  # Local file path
   acl    = "private"  # Access control
 }
-
