@@ -109,6 +109,6 @@ resource "aws_s3_bucket" "my_bucket" {
 resource "aws_s3_bucket_object" "my_file" {
   bucket = aws_s3_bucket.my_bucket.bucket  # Reference the created bucket
   key    = "index.html"       # S3 object key (filename in the bucket)
-  source = "C:\Users\bmxma\OneDrive\Desktop\My Resume and Job Sutff\Resume-Website\index.html"  # Local file path (make sure this file exists in the specified location)
+  source = "C:/Users/bmxma/OneDrive/Desktop/My Resume and Job Sutff/Resume-Website/index.html"  # Local file path (make sure this file exists in the specified location)
   acl    = "private"  # Access control
 }
