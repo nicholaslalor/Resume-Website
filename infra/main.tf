@@ -108,7 +108,7 @@ resource "aws_s3_bucket" "my_bucket" {
 # Upload a file to the S3 bucket
 resource "aws_s3_bucket_object" "my_file" {
   bucket = aws_s3_bucket.my_bucket.bucket  # Reference the created bucket
-  key    = "C:\Users\bmxma\OneDrive\Desktop\My Resume and Job Sutff\Resume-Website\index.html"       # S3 object key (filename in the bucket)
-  source = "${path.module}/lambda/func.zip"  # Local file path (make sure this file exists in the specified location)
+  key    = "index.html"       # S3 object key (filename in the bucket)
+  source = "C:\Users\bmxma\OneDrive\Desktop\My Resume and Job Sutff\Resume-Website\index.html"  # Local file path (make sure this file exists in the specified location)
   acl    = "private"  # Access control
 }
