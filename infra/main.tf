@@ -95,20 +95,26 @@ resource "aws_s3_bucket" "my_bucket" {
   bucket = "nicholaslalor.com"  # Replace with your actual bucket name
   acl    = "private"            # Set the access control level
 
-  versioning {
-    enabled = true  # Optional: Enable versioning for the bucket
-  }
-
   tags = {
     Name        = "nicholaslalor.com"
     Environment = "Dev"
   }
 }
 
+# Enable versioning on the S3 bucket
+resource "aws_s3_bucket_versioning" "my_bucket_versioning" {
+  bucket = aws_s3_bucket.my_bucket.bucket
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
 # Upload a file to the S3 bucket
-resource "aws_s3_bucket_object" "my_file" {
+resource "aws_s3_object" "my_file" {
   bucket = aws_s3_bucket.my_bucket.bucket  # Reference the created bucket
   key    = "index.html"       # S3 object key (filename in the bucket)
-  source = "C:/Users/bmxma/OneDrive/Desktop/My Resume and Job Sutff/Resume-Website/index.html"  # Local file path (make sure this file exists in the specified location)
+  source = "C:/Users/bmxma/OneDrive/Desktop/My Resume and Job Sutff/Resume-Website/index.html"  # Local file path
   acl    = "private"  # Access control
 }
+
