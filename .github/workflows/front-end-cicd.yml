@@ -24,7 +24,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'us-east-1'  # Ensure this matches your bucket's region
-          SOURCE_DIR: 'Resume-Website'  # The folder containing your site files
+          SOURCE_DIR: '.'  # The folder containing your site files
 
       # Step 3: Set up Terraform
       - name: Set up Terraform
