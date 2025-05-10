@@ -1,7 +1,7 @@
 # AWS Cloud Resume Challenge
 
 ## Overview
-In participating in the AWS Cloud Resume Challenge, I aimed to not only create a visually engaging resume website but also to deepen my knowledge of cloud computing and the practical use of various AWS services. This project allowed me to work hands-on with a broad range of technologies, enhancing both my technical skills and my understanding of cloud architecture.
+In participating in the AWS Cloud Resume Challenge, I aimed to not only create a visually engaging resume website but also to deepen my knowledge of cloud computing and the practical use of various AWS services. This project allowed me to work hands-on with a broad range of technologies, enhancing both my technical skills and my understanding of cloud architecture. The project involved leveraging AWS services such as S3, CloudFront, and Lambda to build a scalable, serverless website. Additionally, I implemented a CI/CD pipeline using GitHub Actions to automate the deployment process and ensure quick updates to the website.
 
 ## Features
 - **S3 Hosting**: Hosted the static resume website on AWS S3, ensuring the site is scalable and cost-efficient.
@@ -52,3 +52,31 @@ This challenge was instrumental in enhancing my understanding of cloud architect
 - **DynamoDB**: NoSQL database to store visitor count data.
 - **HTML/CSS/JS**: Frontend technologies for the resume website.
 
+## How to Run
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/username/Cloud-Resume-Challenge.git
+    ```
+
+2. Navigate to the project directory:
+    ```bash
+    cd Cloud-Resume-Challenge
+    ```
+
+3. **Configure AWS CLI and Credentials**: Ensure that your AWS CLI is configured with your personal credentials:
+    ```bash
+    aws configure
+    ```
+
+4. **Deploy the Website Using Terraform**:
+    ```bash
+    terraform init
+    terraform apply
+    ```
+
+5. Once deployed, the website will be live and accessible through the custom domain after DNS propagation.
+
+6. **Automatic Updates**: To update the website, push changes to the `main` branch in the GitHub repository, and the CI/CD pipeline will automatically redeploy the site.
+
+> **Important**: This setup requires AWS credentials, so make sure to configure them properly before deploying.
